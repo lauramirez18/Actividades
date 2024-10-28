@@ -15,18 +15,16 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useActividadesStore } from '../stores/stores'
+import Swal from 'sweetalert2';
 
 const route = useRoute()
 const router = useRouter()
 const actividadesStore = useActividadesStore()
-
-const actividadEditable = ref([])
-
+const actividadId = Number(route.params.id) 
+const actividadEditable = ref({})
 
 onMounted(() => {
-  const actividadId = Number(route.params.id) 
-  const actividad = actividadesStore.actividades.find(a => a.id === actividadId)
-  
+  const actividad = actividadesStore.obtenerActividad(actividadId)
   if (actividad) {
     actividadEditable.value = { ...actividad }
   } else {
@@ -34,10 +32,17 @@ onMounted(() => {
     router.push('/') 
   }
 })
+
 const guardarCambios = () => {
-  actividadesStore.editarActividad(route.params.id, actividadEditable.value)
+  actividadesStore.editarActividad(actividadId, actividadEditable.value)
   console.log(actividadEditable.value)
   router.push('/actividades')
+  Swal.fire({
+    icon: 'success',  
+    title: 'Actividad editada',  
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 </script>
 <style scoped>

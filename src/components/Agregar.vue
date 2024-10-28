@@ -30,6 +30,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useActividadesStore } from '../stores/stores'
+import Swal from 'sweetalert2';
 
 const actividad = ref('')
 const fecha = ref('')
@@ -43,6 +44,11 @@ const submitForm = (event) => {
   event.preventDefault()  
 
   if (actividad.value === '' || fecha.value === '' || estado.value === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Todos los campos son obligatorios',
+    })
     return
   }
 
