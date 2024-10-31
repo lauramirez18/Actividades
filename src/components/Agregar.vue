@@ -3,11 +3,11 @@
     <form class="form">
       <div class="form-group">
         <h4>Ingresa una nueva actividad</h4>
-        <textarea cols="50" rows="10" id="textarea" v-model="actividad" required="" name="textarea"></textarea>
+        <textarea cols="50" rows="10" id="textarea" v-model="actividad"></textarea>
       </div>
       <div class="form-group">
         <label for="date">
-         <input required name="date" id="date" type="date" v-model="fecha" >  
+         <input  id="date" type="date" v-model="fecha" >  
         </label>
         
       </div>
@@ -19,9 +19,14 @@
       class="input"
       :class="{'text-green': estado === 'Completado',
        'text-red': estado === 'Pendiente'}"
+    
     />
       </div>
-      <button type="submit" class="form-submit-btn" @click="submitForm">Agregar</button>
+      <div class="opciones">
+         <button  class="form-submit-btn"><router-link to="/actividades">Cancelar</router-link></button>
+      <button type="submit" class="form-submit-btn" @click="submitForm">Agregar</button> 
+      </div>
+    
     </form>
   </div>
 </template>
@@ -49,6 +54,7 @@ const submitForm = (event) => {
       title: 'Error',
       text: 'Todos los campos son obligatorios',
     })
+  
     return
   }
 
@@ -253,6 +259,14 @@ h4{
   50% {
     transform: translateY(-10px); 
   }
+}
+
+.opciones{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #ffffff;
 }
 
 .text-green {

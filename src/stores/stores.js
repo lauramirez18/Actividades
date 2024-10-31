@@ -25,12 +25,19 @@ export const useActividadesStore = defineStore('actividades', () => {
     return actividades.value.find(a => a.id === id)
   }
 
+  const vaciarActividades = () => {
+    console.log(actividades.value)
+    actividades.value = []
+    console.log(actividades.value)
+  }
+
   return {
     actividades,
     agregarActividad,
     borrarActividad,
     editarActividad,
-    obtenerActividad
+    obtenerActividad,
+    vaciarActividades
   }
 }, {
   persist: true
